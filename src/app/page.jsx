@@ -1,103 +1,140 @@
-import Image from "next/image";
+'use client'
+import { Selectlanguage } from '@/components/Selectlanguage';
+import  Translatepage  from '@/components/translate';
+import React, { useEffect, useState } from 'react'
+import { FaLanguage } from "react-icons/fa";
+import { FaArrowRightArrowLeft } from "react-icons/fa6";
+import { Button} from "@/components/ui/button";
+import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { TbBrowserPlus } from "react-icons/tb";
+import { resolve } from 'styled-jsx/css';
+import axios from 'axios';
 
-export default function Home() {
+
+
+
+const page = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getprofile`, {
+        withCredentials: true
+      }); 
+    }
+    fetchData();
+  }, [])
+  const [isFileSelected, setIsFileSelected] = useState(false);
+  const [fromValue, setFromValue] = useState('auto');
+  const [toValue, setToValue] = useState("");
+  const [file, setFile] = useState(null);
+  const [languages, setLanguages] = useState([]);
+
+  const filehandelar = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.type !== "application/pdf") {
+        alert("Please upload a PDF file.");
+        return;
+      } 
+      if (file.size > 10 * 1024 * 1024) { // 10 MB limit
+        alert("File size exceeds 10 MB limit.");
+        return;
+      }
+      setFile(file);
+    }
+  }
+
+
+
+  const exchangeLanguage = React.useCallback(() => {
+    if (fromValue === "Auto Detect" || toValue === "") {
+      return;
+    }
+    const temp = fromValue; 
+    setFromValue(toValue);
+    setToValue(temp);
+  }, [fromValue, toValue]);
+  useEffect(() => {
+    setLanguages([
+      {
+        value: "auto",
+        label: "Auto Detect",
+    },
+    {
+      value: "en",
+      label: "English",
+    },
+    {
+      value: "es",
+      label: "Spanish",
+    },
+    {
+      value: "fr",
+      label: "French",
+    },
+    {
+      value: "de",
+      label: "German",
+    },
+    {
+      value: "zh",
+      label: "Chinese",
+    },
+  ])
+
+  }, [fromValue, toValue]);
+  
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className='flex justify-center items-center min-h-screen -mt-16 '>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className='flex flex-col w-full bg-accent mx-4 sm:mx-[12%] rounded-2xl shadow-gray-600 shadow-xl'>
+        {/* this is the from and to language inputs section */}
+        {/* <div className='grid grid-cols-9 grid-rows-1 items-center h-fit w-full px-7 gap-2 py-5'> */}
+        <div className='flex flex-col lg:grid grid-cols-9 grid-rows-1 items-center h-fit w-full px-7 gap-2 py-5'>
+          <div className='hidden lg:block col-span-1 '>
+            <FaLanguage size={56} />
+          </div>
+          <div className='md:col-span-3 flex justify-center scale-110 lg:scale-110'>
+            <Selectlanguage  languages={languages.filter((language) => language.value !== toValue)}  onValueChange={setFromValue} currentValue={fromValue} />
+          </div>
+          <div className='md:col-span-1 flex justify-center items-center'>
+            <Button variant='outline' onClick={exchangeLanguage} className='w-11 h-11 p-1.5 rounded-full shadow-gray-700 shadow-lg'>
+              <FaArrowRightArrowLeft className='w-4 h-4' />
+            </Button>
+          </div>
+          <div className='md:col-span-3 flex justify-center scale-110 lg:scale-110'>
+            <Selectlanguage languages={languages.slice(1).filter((language) => language.value !== fromValue)}  onValueChange={setToValue} currentValue={toValue} />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {!file ? <>
+        <div className='grid grid-cols-11 items-center border-2 rounded-lg border-accent-foreground/60   mx-3 sm:mx-6.5 mb-6 h-80'>
+          <div className='hidden sm:block col-span-5 h-full -mr-12'>
+
+          </div>
+          <div className='hidden sm:flex col-span-1 justify-center items-center h-full sm:h-42 '>
+          <Separator orientation="vertical" />
+          </div>
+          <div className='col-span-11 sm:col-span-5 relative h-full ml-0 sm:-ml-12'>
+            <div className='flex flex-col items-center justify-center h-full space-y-4 '>
+              <TbBrowserPlus className='w-12 h-12 text-muted-foreground' onClick={() => document.getElementById('file_input').click()}/>
+              <h3>Drag and drop Or choose a file</h3>
+              <Input type="file" onChange={filehandelar} className="hidden" id="file_input" />
+              <Button onClick={() => document.getElementById('file_input').click()}>Browse your file</Button>
+              <div className='absolute bottom-8'>
+                <span>Supported file types: .pdf</span>
+              </div>
+            </div>
+          </div>
+        </div>
+          </>
+        : 
+        <>
+         <Translatepage file={file} setFile={setFile} fromValue={fromValue} toValue={toValue} />
+        </>
+        }
+      </div>
     </div>
-  );
+  )
 }
+
+export default page
