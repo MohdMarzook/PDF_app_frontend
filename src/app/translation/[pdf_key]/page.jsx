@@ -16,7 +16,7 @@ const PdfViewPage = ({ params }) => {
     async function fetchPdf() {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/translated/pdf/${decoded_pdf_key}`,
+          `/api/translated/pdf/${decoded_pdf_key}`,
           { withCredentials: true }
         );
         if (response.data.success) {
@@ -33,7 +33,7 @@ const PdfViewPage = ({ params }) => {
     const interval = setInterval(() => {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/translated/html/${decoded_pdf_key}`,
+          `/api/translated/html/${decoded_pdf_key}`,
           { withCredentials: true }
         )
         .then((response) => {

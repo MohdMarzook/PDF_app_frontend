@@ -21,16 +21,10 @@ const page = () => {
   const [file, setFile] = useState(null);
   const [languages, setLanguages] = useState([]);
   const [userId, setUserId] = useState(null);
-  const [prevUserId, setPrevUserId] = useState(null);
 
   useEffect(() => {
-    const getPrevUserId = () => {
-      const cookie = document.cookie.split('; ').find(row => row.startsWith('userId='));
-      setPrevUserId(cookie ? cookie.split('=')[1] : null);
-    }
-    getPrevUserId();
     const fetchData = async () => {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/getprofile`, {
+      const response = await axios.get("/api/getprofile", {
         withCredentials: true
       }); 
       setUserId(response.data);
@@ -95,7 +89,7 @@ const page = () => {
   return (
     <div className='flex justify-center items-center min-h-screen -mt-16 '>
       <div className='flex flex-col w-full bg-accent mx-4 sm:mx-[12%] rounded-2xl shadow-gray-600 shadow-xl'>
-      <div>{userId}  {prevUserId}</div>
+      <div>{userId}</div>
         {/* this is the from and to language inputs section */}
         {/* <div className='grid grid-cols-9 grid-rows-1 items-center h-fit w-full px-7 gap-2 py-5'> */}
         <div className='flex flex-col lg:grid grid-cols-9 grid-rows-1 items-center h-fit w-full px-7 gap-2 py-5'>
