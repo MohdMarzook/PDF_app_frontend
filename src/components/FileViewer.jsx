@@ -125,7 +125,7 @@ function ClientSideFetchViewer({ fileUrl}) {
             PDF
           </button>
           <button
-            // onClick={handleDownload}
+            onClick={handleDownload}
             className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 text-blue-700 border-none cursor-pointer transition"
           >
             HTML
