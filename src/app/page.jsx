@@ -8,7 +8,6 @@ import { Button} from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { TbBrowserPlus } from "react-icons/tb";
-import { resolve } from 'styled-jsx/css';
 import axios from 'axios';
 
 
@@ -20,14 +19,12 @@ const page = () => {
   const [toValue, setToValue] = useState("");
   const [file, setFile] = useState(null);
   const [languages, setLanguages] = useState([]);
-  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("/api/getprofile", {
         withCredentials: true
       }); 
-      setUserId(response.data);
     }
     fetchData();
   }, [])
@@ -89,7 +86,6 @@ const page = () => {
   return (
     <div className='flex justify-center items-center min-h-screen -mt-16 '>
       <div className='flex flex-col w-full bg-accent mx-4 sm:mx-[12%] rounded-2xl shadow-gray-600 shadow-xl'>
-      <div>{userId}</div>
         {/* this is the from and to language inputs section */}
         {/* <div className='grid grid-cols-9 grid-rows-1 items-center h-fit w-full px-7 gap-2 py-5'> */}
         <div className='flex flex-col lg:grid grid-cols-9 grid-rows-1 items-center h-fit w-full px-7 gap-2 py-5'>

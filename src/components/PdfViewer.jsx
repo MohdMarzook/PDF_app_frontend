@@ -1,8 +1,9 @@
 "use client"
+import IframeLoading from '@/components/Iframeloading'
 
 export default function PdfViewer({ pdfUrl }) {
     if (pdfUrl == null) {
-        return <div>Loading PDF...</div>;
+        return <IframeLoading heading={"Loading PDF..."} />;
     }
   if (pdfUrl === "") {
     return (

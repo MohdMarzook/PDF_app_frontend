@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import IframeLoading from '@/components/Iframeloading'
 
-function ClientSideFetchViewer({ fileUrl }) {
+function ClientSideFetchViewer({ fileUrl}) {
   const [contentUrl, setContentUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -58,7 +59,26 @@ function ClientSideFetchViewer({ fileUrl }) {
   };
 
   if (loading) {
-    return <div>Loading Translated PDF...</div>;
+    return (
+      <div className="w-full mx-auto overflow-hidden max-h-[690px] rounded-lg shadow-md p-4">
+        <div className="flex flex-col md:flex-row-reverse gap-4">
+          {/* Skeleton for download buttons (desktop) */}
+          <div className="hidden md:flex flex-col items-center justify-start gap-3 pt-2">
+            <div className="w-16 h-4 bg-gray-300 rounded animate-pulse mb-2"></div>
+            <div className="w-full h-8 bg-gray-300 rounded animate-pulse"></div>
+            <div className="w-full h-8 bg-gray-300 rounded animate-pulse"></div>
+          </div>
+          {/* Skeleton for download buttons (mobile) */}
+          <div className="flex md:hidden flex-row items-center justify-center gap-2 mb-2">
+            <div className="w-20 h-4 bg-gray-300 rounded animate-pulse"></div>
+            <div className="w-12 h-6 bg-gray-300 rounded animate-pulse"></div>
+            <div className="w-12 h-6 bg-gray-300 rounded animate-pulse"></div>
+          </div>
+          {/* Skeleton for iframe viewer */}
+          <IframeLoading heading={"Loading Translated PDF"} />
+        </div>
+      </div>  
+    );
   }
 
   if (error) {
