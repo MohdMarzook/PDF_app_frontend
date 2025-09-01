@@ -20,7 +20,7 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
     console.log(statusId);
     console.log("File is being translated, checking status...");
     intervalRef.current = setInterval(() => {
-      axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/status/${statusId}`, { withCredentials: true })
+      axios.get(`/api/status/${statusId}`, { withCredentials: true })
         .then(response => {
           console.log(response.data);
           if (response.data.status.toLowerCase() === "translating" || response.data.status.toLowerCase() === "completed") {
@@ -54,7 +54,7 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
     formdata.append("to_language", toValue);
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/upload`, formdata, {
+      const response = await axios.post(`/api/upload`, formdata, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
