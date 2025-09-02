@@ -91,7 +91,7 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
             </p>
             
             <p className='text-sm text-foreground truncate lg:text-base'>
-              From {fromValue} To {toValue || "Select language"}
+              From {fromValue.toUpperCase()} To {toValue.toUpperCase() || "Select language"}
             </p>
             
             <Progress value={progress} className="w-full" />

@@ -15,7 +15,7 @@ import axios from 'axios';
 
 const page = () => {
   const [isFileSelected, setIsFileSelected] = useState(false);
-  const [fromValue, setFromValue] = useState('auto');
+  const [fromValue, setFromValue] = useState("auto");
   const [toValue, setToValue] = useState("");
   const [file, setFile] = useState(null);
   const [languages, setLanguages] = useState([]);
@@ -25,6 +25,8 @@ const page = () => {
       const response = await axios.get("/api/getprofile", {
         withCredentials: true
       }); 
+      const langlist = await axios.get("api/languagelist")
+      setLanguages(langlist.data.map(({ id, language, code }) => ({ label: language, value: code })));
     }
     fetchData();
   }, [])
@@ -46,41 +48,12 @@ const page = () => {
 
 
   const exchangeLanguage = React.useCallback(() => {
-    if (fromValue === "Auto Detect" || toValue === "") {
+    if (fromValue === "auto" || toValue === "") {
       return;
     }
     const temp = fromValue; 
     setFromValue(toValue);
     setToValue(temp);
-  }, [fromValue, toValue]);
-  useEffect(() => {
-    setLanguages([
-      {
-        value: "auto",
-        label: "Auto Detect",
-    },
-    {
-      value: "en",
-      label: "English",
-    },
-    {
-      value: "es",
-      label: "Spanish",
-    },
-    {
-      value: "fr",
-      label: "French",
-    },
-    {
-      value: "de",
-      label: "German",
-    },
-    {
-      value: "zh",
-      label: "Chinese",
-    },
-  ])
-
   }, [fromValue, toValue]);
   
   return (
