@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://pdf-app-backend-u4yr.onrender.com/:path*', // Your actual backend URL
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/:path*`, // Your actual backend URL
       },
     ]
   },

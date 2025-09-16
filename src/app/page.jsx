@@ -37,8 +37,8 @@ const page = () => {
         alert("Please upload a PDF file.");
         return;
       } 
-      if (file.size > 10 * 1024 * 1024) { // 10 MB limit
-        alert("File size exceeds 10 MB limit.");
+      if (file.size > 5 * 1024 * 1024) { // 5 MB limit
+        alert("File size exceeds 5 MB limit.");
         return;
       }
       setFile(file);
