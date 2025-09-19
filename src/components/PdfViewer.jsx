@@ -19,7 +19,7 @@ export default function PdfViewer({ pdfUrl }) {
         src={pdfUrl}
         title="PDF Viewer"
         width="100%"
-        height="690px"
+        height="775px"
         style={{ border: "none", borderRadius: 8, boxShadow: "0 2px 8px #0001" }}
       />
     </div>

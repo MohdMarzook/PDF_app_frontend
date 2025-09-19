@@ -3,7 +3,7 @@ import React from "react";
 const IframeLoading = ({heading}) => {
     return (
         <div className="flex-1 md:pt-4">
-            <div className="w-full h-[655px] bg-accent rounded-lg animate-pulse ">
+            <div className="w-full h-[775px] bg-accent rounded-lg animate-pulse ">
                 <div className='pt-4 text-center'>{heading}</div>
                 <div className="p-8 h-full flex flex-wrap">
                     {[

@@ -15,7 +15,7 @@ const Navbar = () => {
             </Link>
         </div>
         <div className='flex space-x-4 items-center'>
-            <Link href="/" className='hover:text-muted-foreground transition-colors'>Translated Files</Link>
+            <Link href="/translation" className='hover:text-muted-foreground transition-colors'>Translated Files</Link>
             <Link href="https://github.com/MohdMarzook?tab=repositories&q=PDF_app&type=&language=&sort=" className='hover:text-muted-foreground transition-colors'>Github</Link>
             <Link href="https://mohdmarzook.pythonanywhere.com/" className='hover:text-muted-foreground transition-colors'>My Portfolio</Link>
             <ThemeToggle />
