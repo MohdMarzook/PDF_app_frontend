@@ -50,7 +50,7 @@ const PdfViewPage = ({ params }) => {
           console.error("Error checking status:", error);
           clearInterval(interval);
         });
-    }, 3000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [decoded_pdf_key]);

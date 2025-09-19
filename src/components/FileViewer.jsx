@@ -60,7 +60,7 @@ function ClientSideFetchViewer({ fileUrl}) {
 
   if (loading) {
     return (
-      <div className="w-full mx-auto overflow-hidden max-h-[690px] rounded-lg shadow-md p-4">
+      <div className="w-full mx-auto overflow-hidden h-[775px] rounded-lg shadow-md p-4">
         <div className="flex flex-col md:flex-row-reverse gap-4">
           {/* Skeleton for download buttons (desktop) */}
           <div className="hidden md:flex flex-col items-center justify-start gap-3 pt-2">
@@ -92,7 +92,7 @@ function ClientSideFetchViewer({ fileUrl}) {
 
   return (
     <div
-      className="w-full mx-auto overflow-hidden max-h-[770px] rounded-lg shadow-md p-4"
+      className="w-full mx-auto overflow-hidden h-[770px] rounded-lg shadow-md p-4"
     >
       <div className="flex flex-col md:flex-row-reverse gap-4">
         {/* Sidebar for download buttons (desktop) */}
@@ -138,7 +138,7 @@ function ClientSideFetchViewer({ fileUrl}) {
             src={contentUrl}
             title="HTML Viewer"
             width="100%"
-            height="740px"
+            height="735px"
             className="border rounded-lg bg-[#fafafa] w-full"
           />
         </div>
