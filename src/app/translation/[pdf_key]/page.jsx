@@ -8,6 +8,7 @@ const PdfViewPage = ({ params }) => {
   // Unwrap params if it's a Promise (future-proof)
   const { pdf_key } = typeof params.then === "function" ? use(params) : params;
   const decoded_pdf_key = pdf_key;
+  const [notFound, setNotFound] = useState(false);
 
   const [pdfUrl, setPdfUrl] = useState(null); 
   const [htmlUrl, setHtmlUrl] = useState(null);
@@ -23,7 +24,8 @@ const PdfViewPage = ({ params }) => {
           setPdfUrl(response.data.originalPdfLink);
         }
       } catch (error) {
-        console.error("Error fetching PDF:", error);
+        
+        setNotFound(true);
       }
     }
     fetchPdf();
@@ -47,13 +49,24 @@ const PdfViewPage = ({ params }) => {
           }
         })
         .catch((error) => {
-          console.error("Error checking status:", error);
+          
           clearInterval(interval);
+          setNotFound(true);
         });
     }, 1000);
 
     return () => clearInterval(interval);
   }, [decoded_pdf_key]);
+
+  if (notFound) {
+    return (
+      <div className="flex justify-center items-center min-h-screen"> 
+        <h2 className="text-2xl font-semibold text-red-600">
+          PDF not found or an error occurred.
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div className="flex justify-center gap-5 w-full">

@@ -15,6 +15,7 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
   const canUpload = file && fromValue && toValue !== "";
   const router = useRouter();
   const intervalRef = useRef(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const isFileTranslated = (statusId) => {
     console.log(statusId);
@@ -45,8 +46,7 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
   }
 
   const uploadFile = async () => {
-    console.log(file, fromValue, toValue);
-
+    setIsUploading(true);
     const formdata = new FormData();
 
     formdata.append("pdf", file);
@@ -101,7 +101,7 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
                 Remove
               </Button>
               <Button 
-                onClick={canUpload ? uploadFile : undefined} 
+                onClick={canUpload & !isUploading ? uploadFile : undefined} 
                 variant={canUpload ? 'default' : 'secondary'} 
                 disabled={!canUpload || progress > 0}
               >
