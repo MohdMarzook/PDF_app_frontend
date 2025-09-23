@@ -5,7 +5,7 @@ function Dropzone({ onFileDrop }) {
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop: (acceptedFiles) => {
       if (acceptedFiles.length > 0) {
-        // Create a synthetic event object similar to what the file input would produce
+        
         const syntheticEvent = {
           target: {
             files: acceptedFiles

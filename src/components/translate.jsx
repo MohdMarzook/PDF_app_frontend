@@ -71,6 +71,12 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
       console.log(response.data);
       isFileTranslated(response.data.statusId);
     } catch (error) {
+      if (error.response?.data?.TooManyPdf) {
+        alert(error.response?.data.TooManyPdf);
+      }
+
+      setIsUploading(false);
+      setProgress(0);
       // Handle error here
       console.error(error.response?.data || error.message);
     }
