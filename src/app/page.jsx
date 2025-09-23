@@ -7,7 +7,9 @@ import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import { Button} from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import Dropzone  from "@/components/DropZone"
 import { TbBrowserPlus } from "react-icons/tb";
+
 import axios from 'axios';
 
 
@@ -79,8 +81,11 @@ const page = () => {
         </div>
         {!file ? <>
         <div className='grid grid-cols-11 items-center border-2 rounded-lg border-accent-foreground/60   mx-3 sm:mx-6.5 mb-6 h-80'>
-          <div className='hidden sm:block col-span-5 h-full -mr-12'>
-
+          <div className='hidden sm:block col-span-5 h-full -mr-12 '>
+            <div className='w-full pt-9'></div>
+            <div className='flex h-[80%] w-[80%] mx-auto border-2 border-dashed border-accent-foreground/60 rounded-lg  items-center justify-center align-middle'>
+              <Dropzone onFileDrop={filehandelar} />
+            </div>
           </div>
           <div className='hidden sm:flex col-span-1 justify-center items-center h-full sm:h-42 '>
           <Separator orientation="vertical" />
@@ -88,7 +93,7 @@ const page = () => {
           <div className='col-span-11 sm:col-span-5 relative h-full ml-0 sm:-ml-12'>
             <div className='flex flex-col items-center justify-center h-full space-y-4 '>
               <TbBrowserPlus className='w-12 h-12 text-muted-foreground' onClick={() => document.getElementById('file_input').click()}/>
-              <h3>Drag and drop Or choose a file</h3>
+              <h3>Choose a file</h3>
               <Input type="file" onChange={filehandelar} className="hidden" id="file_input" />
               <Button onClick={() => document.getElementById('file_input').click()}>Browse your file</Button>
               <div className='absolute bottom-8'>
