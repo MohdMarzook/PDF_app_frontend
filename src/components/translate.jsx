@@ -110,8 +110,9 @@ export default function Translatepage({file, setFile, fromValue, toValue}) {
                 onClick={canUpload & !isUploading ? uploadFile : undefined} 
                 variant={canUpload ? 'default' : 'secondary'} 
                 disabled={!canUpload || progress > 0}
+                className="flex items-center space-x-1 w-28 justify-center"
               >
-                Translate 
+                Translate {isUploading ? <img className="w-9 dark:invert" src="/loading.svg" alt="..." /> : "   "}
               </Button>
             </div>
           </div>
