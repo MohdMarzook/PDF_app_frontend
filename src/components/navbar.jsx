@@ -19,9 +19,9 @@ const Navbar = () => {
             <Link href="https://github.com/MohdMarzook?tab=repositories&q=PDF_app&type=&language=&sort=" className='hover:text-muted-foreground transition-colors'>Github</Link>
             <Link href="https://mohdmarzook.pythonanywhere.com/" className='hover:text-muted-foreground transition-colors'>My Portfolio</Link>
             <ThemeToggle />
-            <Button asChild>
+            {/* <Button asChild>
                 <Link href="/auth/login/">Login</Link>
-            </Button>
+            </Button> */}
         </div>
     </div>
   )
