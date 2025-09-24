@@ -6,14 +6,16 @@ import Link from "next/link";
 const Navbar = () => {
   return (
     <div className='w-full h-16 bg-background border-b border-border text-foreground flex items-center justify-between px-4 transition-colors'>
+        <Link href="/">
         <div className='flex items-center'>
             <div>
                 <img src="/logo.png" alt="Logo" />
             </div>
-            <Link href="/" className='ml-4 text-lg font-bold hover:text-accent-foreground transition-colors'>
+            <div className='ml-4 text-lg font-bold hover:text-accent-foreground transition-colors'>
                 PDF Translator
-            </Link>
+            </div>
         </div>
+        </Link>
         <div className='flex space-x-4 items-center'>
             <Link href="/translation" className='hover:text-muted-foreground transition-colors'>Translated Files</Link>
             <Link href="https://github.com/MohdMarzook?tab=repositories&q=PDF_app&type=&language=&sort=" className='hover:text-muted-foreground transition-colors'>Github</Link>
