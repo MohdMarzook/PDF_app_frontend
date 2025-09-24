@@ -5,7 +5,6 @@ import ClientSideFetchViewer from '@/components/FileViewer';
 import PdfViewer from '@/components/PdfViewer';
 
 const PdfViewPage = ({ params }) => {
-  // Unwrap params if it's a Promise (future-proof)
   const { pdf_key } = typeof params.then === "function" ? use(params) : params;
   const decoded_pdf_key = pdf_key;
   const [notFound, setNotFound] = useState(false);
@@ -53,7 +52,7 @@ const PdfViewPage = ({ params }) => {
           clearInterval(interval);
           setNotFound(true);
         });
-    }, 1000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [decoded_pdf_key]);
