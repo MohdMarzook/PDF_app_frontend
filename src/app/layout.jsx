@@ -1,5 +1,6 @@
 import Navbar from "../components/navbar";
 import "./globals.css";
+import InAppBrowserBanner from "@/components/In-appChecker";
 
 export const metadata = {
   title: "PDF Translator",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
     <html className="dark" lang="en">
       <body>
         <Navbar />
+        <InAppBrowserBanner />
         {children}
       </body>
     </html>
